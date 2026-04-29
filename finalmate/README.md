@@ -1,50 +1,50 @@
-# FinalMate 期末冲刺助手
+# FinalMate — AI-Powered Exam Prep Assistant
 
-FinalMate 是一个面向大学生期末应试的 AI 学习 Agent 原型项目。它不是普通网课播放器，也不是单纯问答机器人，而是把「资料解析 → 往年卷考点分析 → 人类化讲解 → 阶段性主动推进 → 思维导图 → 记忆方法 → 出题批改 → 错题强化」做成一个完整复习闭环。
+FinalMate is an AI study agent prototype designed for university students preparing for final exams. It's not a passive video player or a simple Q&A bot. Instead, it weaves a complete review loop: **material ingestion → past-exam trend analysis → human-like explanations → proactive stage-by-stage nudging → mind mapping → memory techniques → auto-generated quizzes with grading → personalized weak-spot drills**.
 
-本压缩包是一个可运行的完整项目文件夹，包含：
+This is a runnable monorepo containing:
 
-- `apps/web`：React + TypeScript 前端页面
-- `services/api`：Fastify + TypeScript Mock API 服务
-- `packages/shared`：前后端共享类型
-- `docs`：产品说明、系统架构、Agent 设计、Token 预算
-- `infra`：本地 Docker Compose 示例
+- `apps/web` — React + TypeScript frontend
+- `services/api` — Fastify + TypeScript mock API server
+- `packages/shared` — shared types between frontend and backend
+- `docs` — product requirements, architecture, agent design, token budget
+- `infra` — local Docker Compose example
 
-> 当前版本默认使用 Mock 数据，不需要真实大模型 API key。后续可以把 `services/api/src/agents/llm.ts` 中的 `LLMAdapter` 替换成真实模型调用。
+> The current version uses mock data by default — no real LLM API key required. To go live, swap out `LLMAdapter` in `services/api/src/agents/llm.ts` with a real model call.
 
 ---
 
-## 1. 快速启动
+## 1. Quick Start
 
-### 环境要求
+### Prerequisites
 
 - Node.js 20+
 - npm 10+
 
-### 安装依赖
+### Install dependencies
 
 ```bash
 npm install
 ```
 
-### 同时启动前端和后端
+### Start both frontend and backend
 
 ```bash
 npm run dev
 ```
 
-默认地址：
+Default URLs:
 
-- 前端：http://localhost:5173
-- 后端：http://localhost:8787/api/health
+- Frontend: http://localhost:5173
+- Backend health check: http://localhost:8787/api/health
 
-### 只启动前端
+### Frontend only
 
 ```bash
 npm run dev:web
 ```
 
-### 只启动后端
+### Backend only
 
 ```bash
 npm run dev:api
@@ -52,73 +52,71 @@ npm run dev:api
 
 ---
 
-## 2. 当前已实现功能
+## 2. Current Features
 
-### 前端
+### Frontend
 
-- 课程资料上传模拟
-- 往年卷考点热力图
-- 按「考频 × 薄弱程度」排序的复习路径
-- 人类化讲解卡片：是什么、为什么重要、怎么考、例子讲原理、失分点
-- 阶段性主动推进：例如「继续学习 XXX 吗」「是否进入小测」「是否加入思维导图」
-- 思维导图 / 思维链条可视化
-- 快速创建个性化节点
-- 记忆方法 Agent：口诀、类比、对比表、关键词骨架
-- 自动出题与模拟批改
-- 错题本和薄弱点提示
-- Token 预算面板
+- Simulated course material upload
+- Past-exam topic heatmap
+- Study roadmap ranked by **exam frequency × weakness level**
+- Human-like explanation cards: what it is, why it matters, how it's tested, principle-by-example walkthroughs, common pitfalls
+- Proactive coaching nudges: e.g. "Continue with XXX?", "Ready for a quiz?", "Add to mind map?"
+- Mind map / reasoning chain visualization
+- Quick custom node creation
+- Memory technique agents: mnemonics, analogies, comparison tables, keyword skeletons
+- Auto-generated quizzes with simulated grading
+- Mistake notebook and weak-point alerts
+- Token budget panel
 
-### 后端
+### Backend
 
-- 健康检查接口
-- Demo 课程数据接口
-- 资料上传模拟接口
-- 往年卷分析接口
-- 主动推进接口
-- 讲解接口
-- 记忆方法接口
-- 出题接口
-- 批改接口
-- 思维导图节点接口
-
----
-
-## 3. 推荐开发顺序
-
-1. 先运行当前 Mock 版，确认页面和交互闭环。
-2. 将 `services/api/src/data/mockCourse.ts` 替换为真实课程数据。
-3. 接入 PDF / DOCX 解析模块，把上传文件切成知识片段。
-4. 接入向量检索，用课程材料和往年卷作为 RAG 知识库。
-5. 替换 `LLMAdapter`，接入真实模型。
-6. 引入用户系统、课程空间、长期错题本和复习计划。
+- Health check endpoint
+- Demo course data endpoint
+- Simulated material upload endpoint
+- Past-exam analysis endpoint
+- Proactive coaching endpoint
+- Explanation endpoint
+- Memory technique endpoint
+- Quiz generation endpoint
+- Grading endpoint
+- Mind map node CRUD endpoints
 
 ---
 
-## 4. 项目目录
+## 3. Recommended Development Roadmap
+
+1. Run the current mock version to verify the full interaction loop.
+2. Replace `services/api/src/data/mockCourse.ts` with real course data.
+3. Add PDF/DOCX parsing to chunk uploaded files into knowledge fragments.
+4. Integrate vector retrieval for RAG over course materials and past exams.
+5. Replace `LLMAdapter` with a real model provider.
+6. Add user accounts, course spaces, persistent mistake logs, and long-term study plans.
+
+---
+
+## 4. Project Structure
 
 ```text
 finalmate/
   apps/
-    web/                 React 前端
+    web/                 React frontend
   services/
-    api/                 Fastify 后端 Mock API
+    api/                 Fastify mock API server
   packages/
-    shared/              共享类型
-  docs/                  产品与架构文档
-  infra/                 本地基础设施示例
+    shared/              Shared TypeScript types
+  docs/                  Product & architecture docs
+  infra/                 Local infrastructure examples
 ```
 
 ---
 
-## 5. 设计目标
+## 5. Design Philosophy
 
-FinalMate 的核心不是「替学生看网课」，而是帮学生在期末时间很短的场景下快速进入有效复习：
+FinalMate is not about "watching lectures for you." It's about helping students get into effective review mode fast when the exam clock is ticking:
 
-- 少让用户想 Prompt
-- 多让系统主动推进
-- 讲解像真人老师
-- 根据往年卷判断重点
-- 用题目检测是否真的掌握
-- 用可视化帮助学生建立自己的知识结构
-- 针对不同知识点给不同记忆方法
-
+- Minimize prompt engineering — the system drives the conversation
+- Explanations that feel like a real tutor, not a wiki page
+- Past-exam data drives prioritization
+- Quizzes verify real understanding, not just passive reading
+- Visualizations help students build their own mental models
+- Different memory techniques for different types of knowledge
