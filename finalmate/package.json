@@ -1,0 +1,23 @@
+{
+  "name": "finalmate-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FinalMate 期末冲刺助手完整项目文件夹",
+  "workspaces": [
+    "apps/web",
+    "services/api",
+    "packages/shared"
+  ],
+  "scripts": {
+    "dev": "concurrently -n web,api -c blue,green \"npm run dev -w @finalmate/web\" \"npm run dev -w @finalmate/api\"",
+    "dev:web": "npm run dev -w @finalmate/web",
+    "dev:api": "npm run dev -w @finalmate/api",
+    "build": "npm run build -w @finalmate/shared && npm run build -w @finalmate/api && npm run build -w @finalmate/web",
+    "typecheck": "npm run typecheck -w @finalmate/shared && npm run typecheck -w @finalmate/api && npm run typecheck -w @finalmate/web",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "prettier": "^3.3.3"
+  }
+}
